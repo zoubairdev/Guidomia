@@ -15,71 +15,37 @@
         />
 
     <LinearLayout
+        android:id="@+id/prosLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="0dp"
+        android:orientation="vertical"
+        >
+        <LinearLayout
+            android:id="@+id/refLinearLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.1"
-            android:src="@drawable/ic_baseline_check_circle_24"
-            android:layout_gravity="center"
-            />
+            android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.9"
-            android:text="Description"
-            android:layout_gravity="center"
-            android:textSize="18sp"/>
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:src="@drawable/ic_baseline_check_circle_24"
+                android:layout_gravity="center"
+                />
 
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.9"
+                android:text="Description"
+                android:layout_gravity="center"
+                android:textSize="18sp"/>
+
+        </LinearLayout>
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
 
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.1"
-            android:src="@drawable/ic_baseline_check_circle_24"
-            android:layout_gravity="center"
-            />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.9"
-            android:text="Description"
-            android:layout_gravity="center"
-            android:textSize="18sp"/>
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.1"
-            android:src="@drawable/ic_baseline_check_circle_24"
-            android:layout_gravity="center"
-            />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.9"
-            android:text="Description"
-            android:layout_gravity="center"
-            android:textSize="18sp"/>
-
-    </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
@@ -89,27 +55,37 @@
         android:textSize="20sp"
         android:textStyle="bold"
         />
+
     <LinearLayout
+        android:id="@+id/consLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="0dp"
+        android:orientation="vertical"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.1"
-            android:src="@drawable/ic_baseline_check_circle_24"
-            android:layout_gravity="center"
-            />
+            android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.9"
-            android:text="Description"
-            android:layout_gravity="center"
-            android:textSize="18sp"/>
+            <ImageView
+                android:id="@+id/circleIV"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:src="@drawable/ic_baseline_check_circle_24"
+                android:layout_gravity="center"
+                />
 
+            <TextView
+                android:id="@+id/descriptionTV"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.9"
+                android:text="Description"
+                android:layout_gravity="center"
+                android:textSize="18sp"/>
+
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>
