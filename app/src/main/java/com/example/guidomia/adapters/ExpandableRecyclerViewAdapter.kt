@@ -16,8 +16,13 @@ class ExpandableRecyclerViewAdapter(private val parentList: List<Parent>) : Recy
 
     private val expandedParentIndexList = mutableListOf<Int>()
     var expandedParentPosition = RecyclerView.NO_POSITION
+    protected var filteredDataSet = mutableListOf<Parent>()
 
-
+    init {
+        parentList.forEach { parent ->
+            filteredDataSet.add(parent)
+        }
+    }
     override fun getItemViewType(position: Int): Int {
         return if (isParent(position)) VIEW_TYPE_PARENT else VIEW_TYPE_CHILD
     }
@@ -34,10 +39,10 @@ class ExpandableRecyclerViewAdapter(private val parentList: List<Parent>) : Recy
 
     override fun getItemCount(): Int {
         var count = 0
-        for (i in parentList.indices) {
+        for (i in filteredDataSet.indices) {
             count++
             if (isExpanded(i)) {
-                count += parentList[i].children.size
+                count += filteredDataSet[i].children.size
             }
         }
         return count
@@ -57,14 +62,14 @@ class ExpandableRecyclerViewAdapter(private val parentList: List<Parent>) : Recy
 
     private fun isParent(position: Int): Boolean {
         var count = 0
-        for (i in parentList.indices) {
+        for (i in filteredDataSet.indices) {
 
             if (count == position) {
                 return true
             }
             count++
             if (isExpanded(count - 1)) {
-                count += parentList[i].children.size
+                count += filteredDataSet[i].children.size
             }
         }
         return false
@@ -72,13 +77,13 @@ class ExpandableRecyclerViewAdapter(private val parentList: List<Parent>) : Recy
 
     private fun getParentAt(position: Int): Parent {
         var count = 0
-        for (i in parentList.indices) {
+        for (i in filteredDataSet.indices) {
             if (count == position) {
-                return parentList[i]
+                return filteredDataSet[i]
             }
             count++
             if (isExpanded(count - 1)) {
-                count += parentList[i].children.size
+                count += filteredDataSet[i].children.size
             }
         }
         throw IllegalArgumentException("Invalid position")
@@ -86,10 +91,10 @@ class ExpandableRecyclerViewAdapter(private val parentList: List<Parent>) : Recy
 
     private fun getChildAt(position: Int): Child {
         var count = 0
-        for (i in parentList.indices) {
+        for (i in filteredDataSet.indices) {
             count++
             if (isExpanded(count - 1)) {
-                val children = parentList[i].children
+                val children = filteredDataSet[i].children
                 if (position <= count + children.size - 1) {
                     return children[position - count]
                 }
@@ -102,11 +107,26 @@ class ExpandableRecyclerViewAdapter(private val parentList: List<Parent>) : Recy
     internal fun expandParent(position: Int) {
         expandedParentPosition = position
         expandedParentIndexList.add(position)
-        notifyItemRangeInserted(position + 1, parentList[position].children.size)
+        notifyItemRangeInserted(position + 1, filteredDataSet[position].children.size)
     }
 
     fun collapseParent(position: Int) {
         expandedParentIndexList.remove(position)
-        notifyItemRangeRemoved(position + 1, parentList[position].children.size)
+        notifyItemRangeRemoved(position + 1, filteredDataSet[position].children.size)
+    }
+
+    fun filter(filterTextByMake: String, filterTextByModel: String) {
+        filteredDataSet.clear()
+        if(filterTextByMake == "Any make" && filterTextByModel== "Any model"){
+            filteredDataSet = parentList.toMutableList()
+        }else {
+            parentList.forEach { parent ->
+                if (parent.make.contains(filterTextByMake) ||  parent.model.contains(filterTextByModel)) {
+                    filteredDataSet.add(parent)
+                }
+            }
+        }
+
+        notifyDataSetChanged()
     }
 }

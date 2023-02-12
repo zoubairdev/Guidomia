@@ -9,7 +9,6 @@ import com.example.guidomia.adapters.ExpandableRecyclerViewAdapter
 import com.example.guidomia.databinding.FragmentHomeBinding
 import com.example.guidomia.models.Child
 import com.example.guidomia.models.Parent
-import com.example.guidomia.ui.HomeFragment
 import org.json.JSONArray
 import org.json.JSONException
 import java.io.IOException
@@ -17,6 +16,8 @@ import java.io.InputStream
 import java.nio.charset.Charset
 
 class HomeViewModel: ViewModel() {
+
+    lateinit var adapter: ExpandableRecyclerViewAdapter
 
     fun loadJSONFromAsset(context : Context): String? {
         var json: String? = null
@@ -39,6 +40,8 @@ class HomeViewModel: ViewModel() {
             val jsonArray = JSONArray(loadJSONFromAsset(context))
             val spinner1Values = mutableListOf<String>()
             val spinner2Values = mutableListOf<String>()
+            spinner1Values.add("Any make")
+            spinner2Values.add("Any model")
             for (i in 0 until jsonArray.length()) {
                 val carObject = jsonArray.getJSONObject(i)
                 val model = carObject.getString("model")
@@ -55,7 +58,7 @@ class HomeViewModel: ViewModel() {
                 spinner1Values.add(make)
                 spinner2Values.add(model)
             }
-            val adapter = ExpandableRecyclerViewAdapter(parentList!!.toList())
+            adapter = ExpandableRecyclerViewAdapter(parentList!!.toList())
             binding.recyclerView.layoutManager = LinearLayoutManager(context)
             binding.recyclerView.adapter = adapter
             val spinner1Adapter = ArrayAdapter(context, R.layout.simple_spinner_item, spinner1Values)
@@ -74,5 +77,9 @@ class HomeViewModel: ViewModel() {
 
     fun jsonArrayToList(jsonArray: JSONArray): List<String> {
         return (0 until jsonArray.length()).map { jsonArray.getString(it) }
+    }
+
+    fun filterData(textMake : String,textModel: String){
+        adapter.filter(textMake,textModel)
     }
 }
