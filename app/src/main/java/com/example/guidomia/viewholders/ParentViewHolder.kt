@@ -1,4 +1,4 @@
-package com.example.guidomia
+package com.example.guidomia.viewholders
 
 import android.graphics.BitmapFactory
 import android.view.View
@@ -6,7 +6,9 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import java.nio.channels.DatagramChannel.open
+import com.example.guidomia.adapters.ExpandableRecyclerViewAdapter
+import com.example.guidomia.R
+import com.example.guidomia.models.Parent
 
 class ParentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 

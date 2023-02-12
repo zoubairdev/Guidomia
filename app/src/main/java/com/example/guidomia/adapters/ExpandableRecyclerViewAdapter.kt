@@ -1,11 +1,13 @@
-package com.example.guidomia
+package com.example.guidomia.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.guidomia.R
+import com.example.guidomia.models.Child
+import com.example.guidomia.models.Parent
+import com.example.guidomia.viewholders.ChildViewHolder
+import com.example.guidomia.viewholders.ParentViewHolder
 
 class ExpandableRecyclerViewAdapter(private val parentList: List<Parent>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

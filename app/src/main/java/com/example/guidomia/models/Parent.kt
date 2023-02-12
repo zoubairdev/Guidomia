@@ -1,4 +1,4 @@
-package com.example.guidomia
+package com.example.guidomia.models
 
 data class Parent(
     val model: String,

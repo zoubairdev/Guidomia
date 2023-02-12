@@ -1,12 +1,17 @@
-package com.example.guidomia
+package com.example.guidomia.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.guidomia.adapters.ExpandableRecyclerViewAdapter
 import com.example.guidomia.databinding.FragmentHomeBinding
+import com.example.guidomia.models.Child
+import com.example.guidomia.models.Parent
+import com.example.guidomia.viewmodels.HomeViewModel
 import org.json.JSONArray
 import org.json.JSONException
 import java.io.IOException
@@ -22,6 +27,7 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val parentList: MutableList<Parent>? = mutableListOf()
     private var childList: MutableList<Child>? = mutableListOf()
+    private lateinit var viewModel: HomeViewModel
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -31,8 +37,8 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        viewModel = ViewModelProvider(requireActivity())[HomeViewModel::class.java]
         return binding.root
 
     }
@@ -40,7 +46,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         try {
-            val jsonArray = JSONArray(loadJSONFromAsset())
+            val jsonArray = JSONArray(viewModel.loadJSONFromAsset(requireActivity()))
             for (i in 0 until jsonArray.length()) {
                 val carObject = jsonArray.getJSONObject(i)
                 val model = carObject.getString("model")
@@ -63,21 +69,6 @@ class HomeFragment : Fragment() {
         binding.recyclerView.adapter = adapter
     }
 
-    private fun loadJSONFromAsset(): String? {
-        var json: String? = null
-        json = try {
-            val iS: InputStream = context?.assets!!.open("car_list.json")
-            val size: Int = iS.available()
-            val buffer = ByteArray(size)
-            iS.read(buffer)
-            iS.close()
-            String(buffer, Charset.defaultCharset())
-        } catch (ex: IOException) {
-            ex.printStackTrace()
-            return null
-        }
-        return json
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()

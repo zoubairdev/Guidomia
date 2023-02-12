@@ -1,4 +1,4 @@
-package com.example.guidomia
+package com.example.guidomia.viewholders
 
 import android.view.Gravity
 import android.view.View
@@ -6,6 +6,8 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.guidomia.R
+import com.example.guidomia.models.Child
 
 
 class ChildViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

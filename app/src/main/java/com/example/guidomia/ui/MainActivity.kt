@@ -1,14 +1,12 @@
-package com.example.guidomia
+package com.example.guidomia.ui
 
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
-import android.view.Menu
-import android.view.MenuItem
+import com.example.guidomia.R
 import com.example.guidomia.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
