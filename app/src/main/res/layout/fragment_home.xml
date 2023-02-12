@@ -63,21 +63,23 @@
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
         android:elevation="8dp">
 
-        <EditText
+add         <Spinner
+            android:id="@+id/spinner1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/edit_text_shape"
-            android:hint="EditText 1"
             android:layout_margin="10dp"
-            android:padding="16dp" />
+            android:prompt="@string/spinner1_prompt"
+            android:padding="16dp"/>
 
-        <EditText
+        <Spinner
+            android:id="@+id/spinner2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/edit_text_shape"
-            android:hint="EditText 2"
             android:layout_margin="10dp"
-            android:padding="16dp" />
+            android:prompt="@string/spinner2_prompt"
+            android:padding="16dp"/>
 
     </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView

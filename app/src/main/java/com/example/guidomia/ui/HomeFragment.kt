@@ -1,9 +1,11 @@
 package com.example.guidomia.ui
 
+import android.R
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,6 +19,7 @@ import org.json.JSONException
 import java.io.IOException
 import java.io.InputStream
 import java.nio.charset.Charset
+import java.util.*
 
 
 /**
@@ -45,28 +48,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        try {
-            val jsonArray = JSONArray(viewModel.loadJSONFromAsset(requireActivity()))
-            for (i in 0 until jsonArray.length()) {
-                val carObject = jsonArray.getJSONObject(i)
-                val model = carObject.getString("model")
-                val price = carObject.getDouble("customerPrice")
-                val rating = carObject.getInt("rating")
-                val imgFile = carObject.getString("imgFile")
-                val prosList = carObject.getJSONArray("prosList")
-                val consList = carObject.getJSONArray("consList")
-                val child = Child(jsonArrayToList(prosList),jsonArrayToList(consList))
-                childList?.clear()
-                childList?.add(child)
-                parentList?.add(Parent(model, price,rating,imgFile,childList!!.toList()))
-            }
-        } catch (e: JSONException) {
-            e.printStackTrace()
-        }
-
-        val adapter = ExpandableRecyclerViewAdapter(parentList!!.toList())
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireActivity())
-        binding.recyclerView.adapter = adapter
+        viewModel.populateUI(requireActivity(),binding,parentList!!,childList!!)
     }
 
 
@@ -75,7 +57,5 @@ class HomeFragment : Fragment() {
         _binding = null
     }
 
-    fun jsonArrayToList(jsonArray: JSONArray): List<String> {
-        return (0 until jsonArray.length()).map { jsonArray.getString(it) }
-    }
+
 }
