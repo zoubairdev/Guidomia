@@ -1,2 +1,2 @@
 # Guidomia
-test assignment 2023
+Simple car app with kotlin
